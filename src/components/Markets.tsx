@@ -17,15 +17,15 @@ export function Markets() {
             <div aria-hidden="true" className="absolute inset-[10%] rounded-full bg-[radial-gradient(circle,rgba(47,134,232,0.25),transparent_70%)] blur-2xl" />
             <Image
               src="/mapa-americas.svg"
-              alt="Mapa das Américas com os Estados Unidos em turquesa e o Brasil em azul, ligados por uma linha pontilhada"
+              alt="Mapa das Américas com os Estados Unidos e o Brasil em destaque, com marcadores de localização em várias cidades dos dois países"
               width={900}
               height={1000}
               className="relative h-auto w-full"
             />
-            <span className="absolute left-[30%] top-[16%] rounded-full border border-cyan/60 bg-night/80 px-3.5 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur sm:text-xs">
+            <span className="absolute left-[30%] top-[8%] rounded-full border border-cyan/60 bg-night/80 px-3.5 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur sm:text-xs">
               Estados Unidos
             </span>
-            <span className="absolute bottom-[30%] right-[4%] rounded-full border border-blue/70 bg-night/80 px-3.5 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur sm:text-xs">
+            <span className="absolute bottom-[8%] right-[4%] rounded-full sm:bottom-[17%] border border-blue/70 bg-night/80 px-3.5 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur sm:text-xs">
               Brasil
             </span>
           </div>
