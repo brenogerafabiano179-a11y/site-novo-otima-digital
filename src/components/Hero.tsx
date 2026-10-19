@@ -55,7 +55,7 @@ type Business = {
 
 const businesses: Business[] = [
   {
-    img: "/hero/cidade.svg",
+    img: "/hero/cidade.webp",
     alt: "Centro de cidade iluminado ao anoitecer",
     label: ["Mais visibilidade", "no seu mercado"],
     icon: ChartNoAxesColumn,
@@ -64,8 +64,8 @@ const businesses: Business[] = [
     mobile: true,
   },
   {
-    img: "/hero/auto-center.svg",
-    alt: "Fachada de um auto center",
+    img: "/hero/auto-center.webp",
+    alt: "Fachada de uma oficina mecânica",
     label: ["Mais clientes", "locais"],
     icon: Users,
     pos: { left: "55%", top: "1%" },
@@ -73,16 +73,16 @@ const businesses: Business[] = [
     mobile: true,
   },
   {
-    img: "/hero/equipamentos.svg",
-    alt: "Equipamentos de climatização instalados",
+    img: "/hero/centro-comercial.webp",
+    alt: "Prédios comerciais iluminados no centro da cidade",
     label: ["Mais oportunidades", "de negócios"],
     icon: Settings,
     pos: { left: "69%", top: "26%" },
     tag: "below-end",
   },
   {
-    img: "/hero/restaurante.svg",
-    alt: "Restaurante com mesas na calçada à noite",
+    img: "/hero/restaurante.webp",
+    alt: "Fachada de pizzaria com mesas na calçada à noite",
     label: ["Mais ligações", "e agendamentos"],
     icon: PhoneCall,
     pos: { left: "3%", top: "47%" },
@@ -90,16 +90,16 @@ const businesses: Business[] = [
     mobile: true,
   },
   {
-    img: "/hero/clinica.svg",
-    alt: "Consultório de uma clínica",
+    img: "/hero/clinica.webp",
+    alt: "Consultório odontológico",
     label: ["Mais pacientes", "na sua região"],
     icon: Stethoscope,
     pos: { left: "75%", top: "51%" },
     tag: "below-end",
   },
   {
-    img: "/hero/academia.svg",
-    alt: "Academia com esteiras",
+    img: "/hero/academia.webp",
+    alt: "Aparelhos de musculação em uma academia",
     label: ["Mais vendas", "e crescimento"],
     icon: Dumbbell,
     pos: { left: "68%", top: "76%" },
@@ -236,7 +236,7 @@ export function Hero() {
         <div className="relative mx-auto w-full max-w-[780px] lg:max-w-none">
           <div
             role="img"
-            aria-label="Mapa noturno das Américas com as luzes das cidades, Estados Unidos e Brasil em destaque, marcadores em várias cidades dos dois países e exemplos de negócios locais: comércio, serviços automotivos, climatização, restaurante, clínica e academia."
+            aria-label="Mapa noturno das Américas com as luzes das cidades, Estados Unidos e Brasil em destaque, marcadores em várias cidades dos dois países e exemplos de negócios locais: cidade, oficina mecânica, centro comercial, restaurante, clínica e academia."
             className="relative aspect-[1050/860] w-full sm:w-[88%] lg:w-full"
           >
             <div
