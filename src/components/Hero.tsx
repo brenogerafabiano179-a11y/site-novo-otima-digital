@@ -127,18 +127,18 @@ function Pin({ x, y, delay }: { x: number; y: number; delay: number }) {
   return (
     <span className="absolute" style={{ left: `${x}%`, top: `${y}%` }}>
       {/* halo no chão */}
-      <span className="absolute left-0 top-0 size-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#14b8a6]/25 blur-[3px] sm:size-9" />
+      <span className="absolute left-0 top-0 size-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2f86e8]/35 blur-[3px] sm:size-9" />
       <span
-        className="hero-pin-pulse absolute left-0 top-0 size-9 rounded-full border border-[#5eead4]/70 motion-reduce:hidden sm:size-12"
+        className="hero-pin-pulse absolute left-0 top-0 size-9 rounded-full border border-cyan/70 motion-reduce:hidden sm:size-12"
         style={{ animationDelay: `${delay}s` }}
       />
       {/* gota */}
       <svg
         viewBox="0 0 24 32"
-        className="absolute bottom-0 left-0 h-[22px] w-[17px] -translate-x-1/2 drop-shadow-[0_0_8px_rgba(94,234,212,0.85)] sm:h-[30px] sm:w-[23px]"
+        className="absolute bottom-0 left-0 h-[22px] w-[17px] -translate-x-1/2 drop-shadow-[0_0_8px_rgba(63,213,240,0.85)] sm:h-[30px] sm:w-[23px]"
       >
-        <path d="M12 31C10 26 2 20 2 12a10 10 0 0 1 20 0c0 8-8 14-10 19Z" fill="#0b3b39" stroke="#5eead4" strokeWidth="1.6" />
-        <circle cx="12" cy="12" r="4" fill="#99f6e4" />
+        <path d="M12 31C10 26 2 20 2 12a10 10 0 0 1 20 0c0 8-8 14-10 19Z" fill="#0b2a55" stroke="#3fd5f0" strokeWidth="1.6" />
+        <circle cx="12" cy="12" r="4" fill="#d4f6ff" />
       </svg>
     </span>
   );
@@ -151,21 +151,21 @@ function BusinessCard({ b, i }: { b: Business; i: number }) {
       className={`hero-fade absolute w-[23%] ${b.mobile ? "" : "max-sm:hidden"}`}
       style={{ left: b.pos.left, top: b.pos.top, animationDelay: `${0.55 + i * 0.1}s` }}
     >
-      <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-white/25 bg-[#0b1d24] shadow-[0_18px_40px_-14px_rgba(0,0,0,0.85)] ring-1 ring-black/40">
+      <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-white/25 bg-navy-card shadow-[0_18px_40px_-14px_rgba(0,0,0,0.85)] ring-1 ring-black/40">
         <Image src={b.img} alt={b.alt} fill sizes="(max-width: 1024px) 26vw, 170px" className="object-cover" />
         <span className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-t from-black/25 to-transparent" />
       </div>
       {/* etiqueta branca */}
       <div
-        className={`absolute z-10 flex items-center gap-2 whitespace-nowrap rounded-lg bg-white px-2.5 py-1.5 text-[#0b1f2a] shadow-[0_12px_28px_-10px_rgba(0,0,0,0.7)] max-sm:hidden lg:gap-2.5 lg:px-3 lg:py-2 ${
+        className={`absolute z-10 flex items-center gap-2 whitespace-nowrap rounded-lg bg-white px-2.5 py-1.5 text-ink shadow-[0_12px_28px_-10px_rgba(0,0,0,0.7)] max-sm:hidden lg:gap-2.5 lg:px-3 lg:py-2 ${
           b.tag === "right" ? "left-[68%] top-[30%]" : b.tag === "below-end" ? "right-[-16%] top-[64%]" : "left-[62%] top-[64%]"
         }`}
       >
-        <Icon className="size-4 shrink-0 text-[#00726a] lg:size-[18px]" aria-hidden="true" strokeWidth={2.4} />
+        <Icon className="size-4 shrink-0 text-blue-ink lg:size-[18px]" aria-hidden="true" strokeWidth={2.4} />
         <span className="text-[0.62rem] font-semibold leading-[1.25] lg:text-[0.7rem] xl:text-[0.74rem]">
           {b.label[0]}
           <br />
-          <span className="font-medium text-[#2f4552]">{b.label[1]}</span>
+          <span className="font-medium text-body-light">{b.label[1]}</span>
         </span>
       </div>
     </div>
@@ -177,11 +177,11 @@ export function Hero() {
     <section
       id="inicio"
       aria-labelledby="hero-title"
-      className="relative isolate overflow-hidden bg-[#04101a] pt-[calc(var(--header-h)+28px)] lg:flex lg:min-h-[100svh] lg:flex-col lg:pt-[calc(var(--header-h)+16px)]"
+      className="relative isolate overflow-hidden bg-night pt-[calc(var(--header-h)+28px)] lg:flex lg:min-h-[100svh] lg:flex-col lg:pt-[calc(var(--header-h)+16px)]"
     >
       {/* fundo: azul-marinho quase preto, luz turquesa discreta atrás do mapa */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_60%_at_74%_42%,rgba(20,184,166,0.16),transparent_70%),radial-gradient(ellipse_40%_50%_at_8%_100%,rgba(0,114,106,0.12),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_60%_at_74%_42%,rgba(47,134,232,0.22),transparent_70%),radial-gradient(ellipse_40%_50%_at_8%_100%,rgba(63,213,240,0.08),transparent_70%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_70%_40%,black,transparent_70%)]" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-night" />
       </div>
@@ -189,7 +189,7 @@ export function Hero() {
       <div className="mx-auto grid w-full max-w-[1440px] flex-1 items-center gap-10 px-5 sm:px-8 lg:grid-cols-[minmax(0,47fr)_minmax(0,53fr)] lg:gap-4 xl:px-12">
         {/* ---------------- texto ---------------- */}
         <div className="relative z-10 py-2">
-          <p className="hero-fade text-[0.7rem] font-bold uppercase tracking-[0.28em] text-[#14b8a6] sm:text-[0.76rem]" style={{ animationDelay: "0.05s" }}>
+          <p className="hero-fade text-[0.7rem] font-bold uppercase tracking-[0.28em] text-cyan sm:text-[0.76rem]" style={{ animationDelay: "0.05s" }}>
             Estratégia digital <span aria-hidden="true" className="mx-1.5">•</span> Brasil e Estados Unidos
           </p>
 
@@ -198,21 +198,21 @@ export function Hero() {
             className="mt-5 text-[clamp(2rem,3.2vw,3.25rem)] font-extrabold leading-[1.06] tracking-[-0.025em] text-white"
           >
             Sua empresa conectada às pessoas certas por meio de estratégias digitais{" "}
-            <span className="text-[#14b8a6]">alinhadas aos seus objetivos.</span>
+            <span className="bg-gradient-to-r from-[#5fe0f7] to-[#3a8ef0] bg-clip-text text-transparent">alinhadas aos seus objetivos.</span>
           </h1>
 
-          <p className="hero-fade mt-6 max-w-[34rem] text-[1.02rem] leading-relaxed text-[#c9d6e2] sm:text-[1.12rem]" style={{ animationDelay: "0.24s" }}>
+          <p className="hero-fade mt-6 max-w-[34rem] text-[1.02rem] leading-relaxed text-body-dark sm:text-[1.12rem]" style={{ animationDelay: "0.24s" }}>
             Estratégia e gestão de anúncios online, presença digital e tecnologia para empresas que querem mais
             visibilidade, mais oportunidades e mais clientes no Brasil e nos Estados Unidos.
           </p>
 
           <div className="hero-fade mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4" style={{ animationDelay: "0.34s" }}>
-            <a href={whatsappLink("hero")} target="_blank" rel="noopener noreferrer" className="btn btn-teal group whitespace-nowrap !rounded-xl !px-6">
+            <a href={whatsappLink("hero")} target="_blank" rel="noopener noreferrer" className="btn btn-primary group whitespace-nowrap !px-6">
               <WhatsAppIcon className="size-5" />
               Quero atrair mais clientes
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
-            <a href="#solucoes" className="btn btn-outline-teal group whitespace-nowrap !rounded-xl !px-6">
+            <a href="#solucoes" className="btn btn-ghost group whitespace-nowrap !px-6">
               Conheça nossos serviços
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
@@ -220,8 +220,8 @@ export function Hero() {
 
           <ul className="hero-fade relative z-20 mt-9 grid grid-cols-2 gap-x-5 gap-y-5 sm:grid-cols-4 sm:gap-x-4 lg:grid-cols-2 xl:w-[128%] xl:grid-cols-4" style={{ animationDelay: "0.44s" }}>
             {benefits.map(({ icon: Icon, text }) => (
-              <li key={text[1]} className="flex items-start gap-2.5 whitespace-nowrap text-[0.86rem] leading-snug text-[#c9d6e2] max-[380px]:whitespace-normal">
-                <Icon className="mt-0.5 size-[22px] shrink-0 text-[#14b8a6]" aria-hidden="true" strokeWidth={2.2} />
+              <li key={text[1]} className="flex items-start gap-2.5 whitespace-nowrap text-[0.86rem] leading-snug text-body-dark max-[380px]:whitespace-normal">
+                <Icon className="mt-0.5 size-[22px] shrink-0 text-cyan" aria-hidden="true" strokeWidth={2.2} />
                 <span>
                   {text[0]}
                   <br />
@@ -236,7 +236,7 @@ export function Hero() {
         <div className="relative mx-auto w-full max-w-[780px] lg:max-w-none">
           <div
             role="img"
-            aria-label="Mapa das Américas com Estados Unidos e Brasil em destaque, marcadores em várias cidades dos dois países e exemplos de negócios locais: comércio, serviços automotivos, climatização, restaurante, clínica e academia."
+            aria-label="Mapa noturno das Américas com as luzes das cidades, Estados Unidos e Brasil em destaque, marcadores em várias cidades dos dois países e exemplos de negócios locais: comércio, serviços automotivos, climatização, restaurante, clínica e academia."
             className="relative aspect-[1050/860] w-full sm:w-[88%] lg:w-full"
           >
             <div
@@ -256,14 +256,14 @@ export function Hero() {
             {/* rótulos dos países */}
             <span
               aria-hidden="true"
-              className="absolute -translate-x-1/2 text-[0.55rem] font-semibold tracking-[0.34em] text-white/90 [text-shadow:0_0_12px_rgba(20,184,166,0.9)] sm:text-[0.72rem] lg:text-[0.78rem]"
+              className="absolute -translate-x-1/2 text-[0.55rem] font-semibold tracking-[0.34em] text-white/90 [text-shadow:0_0_12px_rgba(63,213,240,0.9)] sm:text-[0.72rem] lg:text-[0.78rem]"
               style={{ left: `${mx(25)}%`, top: `${my(31)}%` }}
             >
               ESTADOS UNIDOS
             </span>
             <span
               aria-hidden="true"
-              className="absolute -translate-x-1/2 text-[0.55rem] font-semibold tracking-[0.34em] text-white/90 [text-shadow:0_0_12px_rgba(20,184,166,0.9)] sm:text-[0.72rem] lg:text-[0.78rem]"
+              className="absolute -translate-x-1/2 text-[0.55rem] font-semibold tracking-[0.34em] text-white/90 [text-shadow:0_0_12px_rgba(63,213,240,0.9)] sm:text-[0.72rem] lg:text-[0.78rem]"
               style={{ left: `${mx(59)}%`, top: `${my(68.5)}%` }}
             >
               BRASIL
@@ -285,10 +285,10 @@ export function Hero() {
           {/* celular: etiquetas em grade abaixo do mapa (no desktop elas ficam sobre os cartões) */}
           <ul className="mt-5 grid grid-cols-2 gap-2.5 sm:hidden">
             {businesses.map(({ icon: Icon, label }) => (
-              <li key={label[0]} className="flex items-center gap-2 rounded-lg bg-white px-3 py-2 text-[#0b1f2a]">
-                <Icon className="size-4 shrink-0 text-[#00726a]" aria-hidden="true" strokeWidth={2.4} />
+              <li key={label[0]} className="flex items-center gap-2 rounded-lg bg-white px-3 py-2 text-ink">
+                <Icon className="size-4 shrink-0 text-blue-ink" aria-hidden="true" strokeWidth={2.4} />
                 <span className="text-[0.74rem] font-semibold leading-tight">
-                  {label[0]} <span className="font-medium text-[#2f4552]">{label[1]}</span>
+                  {label[0]} <span className="font-medium text-body-light">{label[1]}</span>
                 </span>
               </li>
             ))}
@@ -298,14 +298,14 @@ export function Hero() {
 
       {/* ---------------- faixa inferior ---------------- */}
       <div className="mx-auto mt-10 w-full max-w-[1440px] px-5 pb-12 sm:px-8 lg:mt-4 lg:pb-8 xl:px-12">
-        <ul className="hero-fade grid grid-cols-2 rounded-2xl border border-white/10 bg-[rgba(6,22,32,0.72)] backdrop-blur-sm xl:grid-cols-4" style={{ animationDelay: "0.6s" }}>
+        <ul className="hero-fade grid grid-cols-2 rounded-2xl border border-white/10 bg-[rgba(10,22,48,0.72)] backdrop-blur-sm xl:grid-cols-4" style={{ animationDelay: "0.6s" }}>
           {facts.map(([title, text], i) => (
             <li
               key={title}
               className={`px-4 py-4 sm:px-8 sm:py-5 lg:py-6 ${i % 2 === 1 ? "border-l border-white/10" : ""} ${i >= 2 ? "border-t border-white/10 xl:border-t-0" : ""} ${i === 2 ? "xl:border-l" : ""}`}
             >
-              <p className="text-[1.02rem] font-bold leading-tight text-[#14b8a6] sm:text-[1.35rem]">{title}</p>
-              <p className="mt-1 text-[0.8rem] leading-snug text-[#c9d6e2] sm:text-[0.95rem]">{text}</p>
+              <p className="text-[1.02rem] font-bold leading-tight text-cyan sm:text-[1.35rem]">{title}</p>
+              <p className="mt-1 text-[0.8rem] leading-snug text-body-dark sm:text-[0.95rem]">{text}</p>
             </li>
           ))}
         </ul>

@@ -88,7 +88,7 @@ export function Header() {
                     {isActive && (
                       <motion.span
                         layoutId="nav-dot"
-                        className="absolute inset-x-4 -bottom-0.5 h-[2px] rounded-full bg-[#14b8a6]"
+                        className="absolute inset-x-4 -bottom-0.5 h-[2px] rounded-full bg-cyan"
                         transition={{ type: "spring", stiffness: 380, damping: 32 }}
                       />
                     )}
@@ -104,7 +104,7 @@ export function Header() {
             href={whatsappLink("geral")}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-teal group hidden whitespace-nowrap !min-h-[46px] !rounded-xl !px-5 text-sm sm:inline-flex"
+            className="btn btn-primary group hidden whitespace-nowrap !min-h-[46px] !px-5 text-sm sm:inline-flex"
           >
             <WhatsAppIcon className="size-[18px] lg:max-xl:hidden" />
             Fale com um especialista
@@ -113,7 +113,7 @@ export function Header() {
           <button
             ref={toggleRef}
             type="button"
-            className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-[#14b8a6] lg:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-cyan lg:hidden"
             aria-expanded={open}
             aria-controls="menu-mobile"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
@@ -161,7 +161,7 @@ export function Header() {
               href={whatsappLink("geral")}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-teal mt-8 w-full !rounded-xl"
+              className="btn btn-primary mt-8 w-full"
               onClick={() => setOpen(false)}
             >
               <WhatsAppIcon className="size-5" />
