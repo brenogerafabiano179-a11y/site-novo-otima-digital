@@ -8,7 +8,7 @@ Site da **Ótima Digital** (Ótima Soluções Empresariais Digitais): estratégi
 - Tailwind CSS 4 (tokens da marca em `src/app/globals.css`)
 - Motion (`motion/react`) para animações
 - lucide-react para ícones
-- Fontes locais em `src/fonts` (Unbounded 800/900 e Montserrat 300–800, licença OFL) carregadas com `next/font/local`, sem chamada ao Google Fonts
+- Fontes locais em `src/fonts` (Montserrat 300–900, licença OFL) carregadas com `next/font/local`, sem chamada ao Google Fonts
 
 Sem backend, banco de dados ou autenticação: não são necessários para um site institucional.
 

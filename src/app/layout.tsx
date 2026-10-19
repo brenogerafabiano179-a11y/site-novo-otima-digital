@@ -4,17 +4,6 @@ import "./globals.css";
 import { brand, contact } from "@/lib/site";
 
 /* Fontes locais (OFL), com pré-carregamento e fallback ajustado pelo Next */
-const unbounded = localFont({
-  src: [
-    { path: "../fonts/unbounded-latin-800-normal.woff2", weight: "800", style: "normal" },
-    { path: "../fonts/unbounded-latin-900-normal.woff2", weight: "900", style: "normal" },
-  ],
-  variable: "--font-unbounded",
-  display: "swap",
-  preload: true,
-  fallback: ["Arial Black", "system-ui", "sans-serif"],
-});
-
 const montserrat = localFont({
   src: [
     { path: "../fonts/montserrat-latin-300-normal.woff2", weight: "300", style: "normal" },
@@ -23,10 +12,11 @@ const montserrat = localFont({
     { path: "../fonts/montserrat-latin-600-normal.woff2", weight: "600", style: "normal" },
     { path: "../fonts/montserrat-latin-700-normal.woff2", weight: "700", style: "normal" },
     { path: "../fonts/montserrat-latin-800-normal.woff2", weight: "800", style: "normal" },
+    { path: "../fonts/montserrat-latin-900-normal.woff2", weight: "900", style: "normal" },
   ],
   variable: "--font-montserrat",
   display: "swap",
-  preload: false,
+  preload: true,
   fallback: ["system-ui", "-apple-system", "Segoe UI", "sans-serif"],
 });
 
@@ -108,7 +98,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${unbounded.variable} ${montserrat.variable}`}>
+    <html lang="pt-BR" className={montserrat.variable}>
       <head>
         <noscript>
           <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important}`}</style>

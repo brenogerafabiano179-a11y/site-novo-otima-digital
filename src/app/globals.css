@@ -54,7 +54,7 @@
   --color-tag-orange: var(--tag-orange);
   --color-tag-pink: var(--tag-pink);
   --color-tag-yellow: var(--tag-yellow);
-  --font-display: var(--font-unbounded), "Arial Black", system-ui, sans-serif;
+  --font-display: var(--font-montserrat), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: var(--font-montserrat), system-ui, -apple-system, "Segoe UI", sans-serif;
   --radius-card: 28px;
 }
@@ -106,7 +106,7 @@ p { text-wrap: pretty; }
 }
 
 .display {
-  font-family: var(--font-unbounded), "Arial Black", system-ui, sans-serif;
+  font-family: var(--font-montserrat), system-ui, -apple-system, "Segoe UI", sans-serif;
   font-weight: 800;
   letter-spacing: -0.01em;
   line-height: 1.04;

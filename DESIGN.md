@@ -26,7 +26,7 @@ Tecnológica, premium e espacial. O universo é a linguagem estética; a estrat�
 Linha-assinatura (3 px, com moderação): #3B35D9 → #8E3CF2 → #FF6B6B → #FFC24B → #3FD5F0 → transparente.
 
 ## Tipografia
-- Unbounded 800/900, caixa alta: marca e grandes títulos (`.display`).
+- Montserrat 800/900, caixa alta: marca e grandes títulos (`.display`).
 - Montserrat 300–800: todo o resto. Rótulos em 300, caixa alta, espaçamento 0.32em (`.eyebrow`).
 - Corpo 17px, entrelinha 1.6.
 
