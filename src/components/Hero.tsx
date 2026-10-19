@@ -1,227 +1,314 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import type { LucideIcon } from "lucide-react";
 import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-} from "motion/react";
-import { ArrowDown, MapPin, Search } from "lucide-react";
-import { Starfield } from "./Starfield";
+  ArrowRight,
+  ChartColumnIncreasing,
+  ChartNoAxesColumn,
+  Dumbbell,
+  MapPin,
+  PhoneCall,
+  Settings,
+  Stethoscope,
+  Users,
+} from "lucide-react";
 import { whatsappLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./ui/icons";
 
-const titleWords = ["SEU", "CLIENTE", "JÁ", "ESTÁ", "PROCURANDO."];
+/* ------------------------------------------------------------------
+   Dados da composição do mapa.
+   Coordenadas em % do quadro do mapa (largura x altura), calculadas a
+   partir da projeção usada para gerar /public/hero/mapa-americas-hero.webp.
+   ------------------------------------------------------------------ */
+
+const MAP_W = 85.7; // a imagem ocupa 85,7% da largura do quadro (o resto é oceano para os cartões)
+const MAP_TOP = 6; // a imagem começa 6% abaixo do topo (espaço para os cartões superiores)
+const mx = (x: number) => +((x * MAP_W) / 100).toFixed(2);
+const my = (y: number) => +(MAP_TOP + (y * (100 - MAP_TOP)) / 100).toFixed(2);
+
+const pins = [
+  // Estados Unidos
+  { x: mx(7.13), y: my(19.27) }, // Los Angeles
+  { x: mx(23.87), y: my(22.07) }, // Dallas
+  { x: mx(33.01), y: my(13.23) }, // Chicago
+  { x: mx(44.15), y: my(14.45) }, // Nova York
+  { x: mx(37.69), y: my(27.06) }, // Orlando
+  // Brasil
+  { x: mx(80.69), y: my(60.99) }, // Fortaleza
+  { x: mx(71.2), y: my(75.14) }, // Brasília
+  { x: mx(70.85), y: my(82.83) }, // São Paulo
+  { x: mx(65.36), y: my(89.32) }, // Porto Alegre
+  { x: mx(60.41), y: my(62.21) }, // Manaus
+];
+
+type Business = {
+  img: string;
+  alt: string;
+  label: [string, string];
+  icon: LucideIcon;
+  /** posição do cartão (% do quadro) */
+  pos: { left: string; top: string };
+  /** posição da etiqueta em relação à foto */
+  tag: "right" | "below-right" | "below-end";
+  /** aparece também no celular */
+  mobile?: boolean;
+};
+
+const businesses: Business[] = [
+  {
+    img: "/hero/cidade.svg",
+    alt: "Centro de cidade iluminado ao anoitecer",
+    label: ["Mais visibilidade", "no seu mercado"],
+    icon: ChartNoAxesColumn,
+    pos: { left: "0%", top: "-2%" },
+    tag: "right",
+    mobile: true,
+  },
+  {
+    img: "/hero/auto-center.svg",
+    alt: "Fachada de um auto center",
+    label: ["Mais clientes", "locais"],
+    icon: Users,
+    pos: { left: "55%", top: "1%" },
+    tag: "below-end",
+    mobile: true,
+  },
+  {
+    img: "/hero/equipamentos.svg",
+    alt: "Equipamentos de climatização instalados",
+    label: ["Mais oportunidades", "de negócios"],
+    icon: Settings,
+    pos: { left: "69%", top: "26%" },
+    tag: "below-end",
+  },
+  {
+    img: "/hero/restaurante.svg",
+    alt: "Restaurante com mesas na calçada à noite",
+    label: ["Mais ligações", "e agendamentos"],
+    icon: PhoneCall,
+    pos: { left: "3%", top: "47%" },
+    tag: "below-right",
+    mobile: true,
+  },
+  {
+    img: "/hero/clinica.svg",
+    alt: "Consultório de uma clínica",
+    label: ["Mais pacientes", "na sua região"],
+    icon: Stethoscope,
+    pos: { left: "75%", top: "51%" },
+    tag: "below-end",
+  },
+  {
+    img: "/hero/academia.svg",
+    alt: "Academia com esteiras",
+    label: ["Mais vendas", "e crescimento"],
+    icon: Dumbbell,
+    pos: { left: "68%", top: "76%" },
+    tag: "below-end",
+    mobile: true,
+  },
+];
+
+const benefits: { icon: LucideIcon; text: [string, string] }[] = [
+  { icon: ChartColumnIncreasing, text: ["Anúncios no", "Google e Meta"] },
+  { icon: MapPin, text: ["Foco no seu", "mercado local"] },
+  { icon: Users, text: ["Estratégia para", "gerar oportunidades"] },
+  { icon: Settings, text: ["Acompanhamento e", "otimização contínua"] },
+];
+
+/** Somente afirmações que já constam no site (sem métricas inventadas). */
+const facts: [string, string][] = [
+  ["2 mercados", "Brasil e Estados Unidos"],
+  ["Google e Meta", "anúncios com otimização contínua"],
+  ["Estratégia", "antes de qualquer ação"],
+  ["Relatórios claros", "de investimento e desempenho"],
+];
+
+function Pin({ x, y, delay }: { x: number; y: number; delay: number }) {
+  return (
+    <span className="absolute" style={{ left: `${x}%`, top: `${y}%` }}>
+      {/* halo no chão */}
+      <span className="absolute left-0 top-0 size-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#14b8a6]/25 blur-[3px] sm:size-9" />
+      <span
+        className="hero-pin-pulse absolute left-0 top-0 size-9 rounded-full border border-[#5eead4]/70 motion-reduce:hidden sm:size-12"
+        style={{ animationDelay: `${delay}s` }}
+      />
+      {/* gota */}
+      <svg
+        viewBox="0 0 24 32"
+        className="absolute bottom-0 left-0 h-[22px] w-[17px] -translate-x-1/2 drop-shadow-[0_0_8px_rgba(94,234,212,0.85)] sm:h-[30px] sm:w-[23px]"
+      >
+        <path d="M12 31C10 26 2 20 2 12a10 10 0 0 1 20 0c0 8-8 14-10 19Z" fill="#0b3b39" stroke="#5eead4" strokeWidth="1.6" />
+        <circle cx="12" cy="12" r="4" fill="#99f6e4" />
+      </svg>
+    </span>
+  );
+}
+
+function BusinessCard({ b, i }: { b: Business; i: number }) {
+  const Icon = b.icon;
+  return (
+    <div
+      className={`hero-fade absolute w-[23%] ${b.mobile ? "" : "max-sm:hidden"}`}
+      style={{ left: b.pos.left, top: b.pos.top, animationDelay: `${0.55 + i * 0.1}s` }}
+    >
+      <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-white/25 bg-[#0b1d24] shadow-[0_18px_40px_-14px_rgba(0,0,0,0.85)] ring-1 ring-black/40">
+        <Image src={b.img} alt={b.alt} fill sizes="(max-width: 1024px) 26vw, 170px" className="object-cover" />
+        <span className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-t from-black/25 to-transparent" />
+      </div>
+      {/* etiqueta branca */}
+      <div
+        className={`absolute z-10 flex items-center gap-2 whitespace-nowrap rounded-lg bg-white px-2.5 py-1.5 text-[#0b1f2a] shadow-[0_12px_28px_-10px_rgba(0,0,0,0.7)] max-sm:hidden lg:gap-2.5 lg:px-3 lg:py-2 ${
+          b.tag === "right" ? "left-[68%] top-[30%]" : b.tag === "below-end" ? "right-[-16%] top-[64%]" : "left-[62%] top-[64%]"
+        }`}
+      >
+        <Icon className="size-4 shrink-0 text-[#00726a] lg:size-[18px]" aria-hidden="true" strokeWidth={2.4} />
+        <span className="text-[0.62rem] font-semibold leading-[1.25] lg:text-[0.7rem] xl:text-[0.74rem]">
+          {b.label[0]}
+          <br />
+          <span className="font-medium text-[#2f4552]">{b.label[1]}</span>
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export function Hero() {
-  const reduce = useReducedMotion();
-  const sectionRef = useRef<HTMLElement>(null);
-
-  // cursor -> luz e inclinação do cristal
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 70, damping: 18 });
-  const sy = useSpring(my, { stiffness: 70, damping: 18 });
-  const rotY = useTransform(sx, [-0.5, 0.5], [-14, 14]);
-  const rotX = useTransform(sy, [-0.5, 0.5], [10, -10]);
-  const shiftX = useTransform(sx, [-0.5, 0.5], [-18, 18]);
-  const shiftY = useTransform(sy, [-0.5, 0.5], [-12, 12]);
-  const glowX = useMotionValue(-999);
-  const glowY = useMotionValue(-999);
-  const gx = useSpring(glowX, { stiffness: 120, damping: 24 });
-  const gy = useSpring(glowY, { stiffness: 120, damping: 24 });
-
-  useEffect(() => {
-    if (reduce) return;
-    const el = sectionRef.current;
-    if (!el) return;
-    const onMove = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse") return;
-      const r = el.getBoundingClientRect();
-      mx.set((e.clientX - r.left) / r.width - 0.5);
-      my.set((e.clientY - r.top) / r.height - 0.5);
-      glowX.set(e.clientX - r.left);
-      glowY.set(e.clientY - r.top);
-    };
-    el.addEventListener("pointermove", onMove);
-    return () => el.removeEventListener("pointermove", onMove);
-  }, [reduce, mx, my, glowX, glowY]);
-
   return (
     <section
       id="inicio"
-      ref={sectionRef}
       aria-labelledby="hero-title"
-      className="grain relative isolate flex min-h-[100svh] items-center overflow-hidden bg-night pb-20 pt-[calc(var(--header-h)+40px)] lg:pb-16"
+      className="relative isolate overflow-hidden bg-[#04101a] pt-[calc(var(--header-h)+28px)] lg:flex lg:min-h-[100svh] lg:flex-col lg:pt-[calc(var(--header-h)+16px)]"
     >
-      {/* camada 1: nebulosa + estrelas */}
+      {/* fundo: azul-marinho quase preto, luz turquesa discreta atrás do mapa */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <Image src="/nebula.webp" alt="" fill priority sizes="100vw" className="object-cover opacity-60" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_72%_45%,rgba(47,134,232,0.28),transparent_55%),radial-gradient(ellipse_at_10%_90%,rgba(63,213,240,0.10),transparent_50%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-night/40 via-transparent to-night" />
-        <Starfield />
-        {!reduce && (
-          <motion.div
-            className="pointer-events-none absolute size-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(63,213,240,0.13),transparent_65%)]"
-            style={{ left: gx, top: gy }}
-          />
-        )}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_60%_at_74%_42%,rgba(20,184,166,0.16),transparent_70%),radial-gradient(ellipse_40%_50%_at_8%_100%,rgba(0,114,106,0.12),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_70%_40%,black,transparent_70%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-night" />
       </div>
 
-      <div className="mx-auto grid w-full max-w-[1320px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-6">
-        {/* texto */}
-        <div className="relative z-10 lg:col-span-7">
-          <div className="hero-fade flex items-center gap-4" style={{ animationDelay: "0.05s" }}>
-            <span className="signature-line block w-12" aria-hidden="true" />
-            <p className="eyebrow text-[0.72rem] text-cyan sm:text-[0.8rem]">Estratégia digital • Brasil e Estados Unidos</p>
-          </div>
+      <div className="mx-auto grid w-full max-w-[1440px] flex-1 items-center gap-10 px-5 sm:px-8 lg:grid-cols-[minmax(0,47fr)_minmax(0,53fr)] lg:gap-4 xl:px-12">
+        {/* ---------------- texto ---------------- */}
+        <div className="relative z-10 py-2">
+          <p className="hero-fade text-[0.7rem] font-bold uppercase tracking-[0.28em] text-[#14b8a6] sm:text-[0.76rem]" style={{ animationDelay: "0.05s" }}>
+            Estratégia digital <span aria-hidden="true" className="mx-1.5">•</span> Brasil e Estados Unidos
+          </p>
 
           <h1
             id="hero-title"
-            className="display mt-7 text-[clamp(2.2rem,5.1vw,4.7rem)] leading-[1] text-white"
+            className="mt-5 text-[clamp(2rem,3.2vw,3.25rem)] font-extrabold leading-[1.06] tracking-[-0.025em] text-white"
           >
-            {titleWords.map((w, i) => (
-              <span key={i} className="mr-[0.22em] inline-block pb-[0.06em] align-top">
-                <span className="hero-word inline-block" style={{ animationDelay: `${0.12 + i * 0.08}s` }}>
-                  {w === "PROCURANDO." ? (
-                    <span className="bg-gradient-to-r from-white via-[#c9f4ff] to-cyan bg-clip-text text-transparent">
-                      {w}
-                    </span>
-                  ) : (
-                    w
-                  )}
-                </span>
-              </span>
-            ))}
+            Sua empresa conectada às pessoas certas por meio de estratégias digitais{" "}
+            <span className="text-[#14b8a6]">alinhadas aos seus objetivos.</span>
           </h1>
 
-          <p
-            style={{ animationDelay: "0.5s" }}
-            className="hero-fade mt-6 text-[clamp(1.25rem,2.2vw,1.75rem)] font-semibold leading-snug text-white/90"
-          >
-            A questão é quem ele encontra primeiro.
+          <p className="hero-fade mt-6 max-w-[34rem] text-[1.02rem] leading-relaxed text-[#c9d6e2] sm:text-[1.12rem]" style={{ animationDelay: "0.24s" }}>
+            Estratégia e gestão de anúncios online, presença digital e tecnologia para empresas que querem mais
+            visibilidade, mais oportunidades e mais clientes no Brasil e nos Estados Unidos.
           </p>
 
-          <p style={{ animationDelay: "0.6s" }} className="hero-fade mt-5 max-w-xl text-[1.05rem] leading-relaxed text-body-dark sm:text-lg">
-            A Ótima Digital conecta sua empresa às pessoas certas com estratégias de marketing, presença digital e
-            tecnologia pensadas para transformar buscas em oportunidades reais de negócio.
-          </p>
-
-          <div style={{ animationDelay: "0.7s" }} className="hero-fade mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a href={whatsappLink("hero")} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+          <div className="hero-fade mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4" style={{ animationDelay: "0.34s" }}>
+            <a href={whatsappLink("hero")} target="_blank" rel="noopener noreferrer" className="btn btn-teal group whitespace-nowrap !rounded-xl !px-6">
               <WhatsAppIcon className="size-5" />
               Quero atrair mais clientes
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
-            <a href="#solucoes" className="btn btn-ghost">
-              Conhecer nossas soluções
+            <a href="#solucoes" className="btn btn-outline-teal group whitespace-nowrap !rounded-xl !px-6">
+              Conheça nossos serviços
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
           </div>
 
-          <div style={{ animationDelay: "0.9s" }} className="hero-fade mt-12 hidden items-center gap-3 text-sm text-muted-dark lg:flex">
-            <ArrowDown className="size-4 animate-bounce motion-reduce:animate-none" aria-hidden="true" />
-            Role para ver a jornada do seu cliente
-          </div>
+          <ul className="hero-fade relative z-20 mt-9 grid grid-cols-2 gap-x-5 gap-y-5 sm:grid-cols-4 sm:gap-x-4 lg:grid-cols-2 xl:w-[128%] xl:grid-cols-4" style={{ animationDelay: "0.44s" }}>
+            {benefits.map(({ icon: Icon, text }) => (
+              <li key={text[1]} className="flex items-start gap-2.5 whitespace-nowrap text-[0.86rem] leading-snug text-[#c9d6e2] max-[380px]:whitespace-normal">
+                <Icon className="mt-0.5 size-[22px] shrink-0 text-[#14b8a6]" aria-hidden="true" strokeWidth={2.2} />
+                <span>
+                  {text[0]}
+                  <br />
+                  {text[1]}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* composição visual: cristal + órbitas + descoberta */}
-        <div className="relative lg:col-span-5" aria-hidden="true">
-          <motion.div
-            className="relative mx-auto aspect-square w-full max-w-[520px] [perspective:1000px]"
-            style={reduce ? undefined : { x: shiftX, y: shiftY }}
+        {/* ---------------- mapa das Américas ---------------- */}
+        <div className="relative mx-auto w-full max-w-[780px] lg:max-w-none">
+          <div
+            role="img"
+            aria-label="Mapa das Américas com Estados Unidos e Brasil em destaque, marcadores em várias cidades dos dois países e exemplos de negócios locais: comércio, serviços automotivos, climatização, restaurante, clínica e academia."
+            className="relative aspect-[1050/860] w-full sm:w-[88%] lg:w-full"
           >
-            <div className="hero-pop absolute inset-0">
-            {/* brilho */}
-            <div className="absolute inset-[12%] rounded-full bg-[radial-gradient(circle,rgba(63,213,240,0.35),rgba(47,134,232,0.12)_45%,transparent_70%)] blur-2xl" />
-
-            {/* órbitas */}
-            <svg viewBox="0 0 520 520" className="absolute inset-0 h-full w-full overflow-visible">
-              <defs>
-                <linearGradient id="orbitA" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stopColor="#3FD5F0" stopOpacity="0.9" />
-                  <stop offset="1" stopColor="#2F86E8" stopOpacity="0.05" />
-                </linearGradient>
-              </defs>
-              <g transform="rotate(-18 260 260)">
-                <ellipse cx="260" cy="260" rx="250" ry="92" fill="none" stroke="url(#orbitA)" strokeWidth="1.2" />
-                <ellipse cx="260" cy="260" rx="205" ry="205" fill="none" stroke="#8FB0DA" strokeOpacity="0.16" strokeDasharray="2 10" />
-              </g>
-              <g transform="rotate(24 260 260)">
-                <ellipse cx="260" cy="260" rx="236" ry="70" fill="none" stroke="#2F86E8" strokeOpacity="0.35" strokeWidth="1" />
-              </g>
-            </svg>
-
-            {/* satélites */}
-            <div className="absolute inset-0 [animation:orbit_22s_linear_infinite] motion-reduce:animate-none">
-              <span className="absolute left-1/2 top-[3%] size-2.5 -translate-x-1/2 rounded-full bg-cyan shadow-[0_0_18px_6px_rgba(63,213,240,0.6)]" />
-            </div>
-            <div className="absolute inset-[9%] [animation:orbit_34s_linear_infinite_reverse] motion-reduce:animate-none">
-              <span className="absolute bottom-0 left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-white shadow-[0_0_12px_4px_rgba(255,255,255,0.5)]" />
-            </div>
-
-            {/* cristal (logo oficial) */}
-            <motion.div
-              className="absolute inset-[19%] [transform-style:preserve-3d]"
-              style={reduce ? undefined : { rotateX: rotX, rotateY: rotY }}
+            <div
+              className="hero-fade absolute bottom-0 left-0 [filter:brightness(1.18)_saturate(1.1)] [mask-image:linear-gradient(to_bottom,black_82%,transparent)]"
+              style={{ width: `${MAP_W}%`, top: `${MAP_TOP}%`, animationDelay: "0.1s" }}
             >
-              <div className="h-full w-full [animation:float-y_7s_ease-in-out_infinite] motion-reduce:animate-none">
-                <Image
-                  src="/logo-otima-3d.webp"
-                  alt=""
-                  width={540}
-                  height={560}
-                  priority
-                  sizes="(max-width: 1024px) 60vw, 330px"
-                  className="h-full w-full object-contain drop-shadow-[0_30px_60px_rgba(31,163,224,0.45)]"
-                />
-              </div>
-            </motion.div>
-
-            {/* pesquisa -> empresa encontrada */}
-            <svg viewBox="0 0 520 520" className="absolute inset-0 h-full w-full overflow-visible">
-              <path
-                d="M70 92 C 170 120, 150 250, 260 262 S 400 360, 448 430"
-                fill="none"
-                stroke="#3FD5F0"
-                strokeOpacity="0.55"
-                strokeWidth="1.5"
-                strokeDasharray="4 10"
-                className="[animation:dash_6s_linear_infinite] motion-reduce:animate-none"
+              <Image
+                src="/hero/mapa-americas-hero.webp"
+                alt=""
+                fill
+                priority
+                sizes="(max-width: 1024px) 90vw, 680px"
+                className="object-contain"
               />
-            </svg>
-
-            <motion.div
-              initial={reduce ? false : { opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1, duration: 0.6 }}
-              className="absolute left-[-2%] top-[8%] flex max-w-[78%] items-center gap-2.5 rounded-full border border-white/15 bg-[rgba(10,22,48,0.75)] py-2.5 pl-3 pr-5 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.6)] backdrop-blur-md sm:left-[-6%]"
-            >
-              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-white/10">
-                <Search className="size-3.5 text-cyan" />
-              </span>
-              <span className="truncate text-[0.8rem] text-white/85 sm:text-sm">empresa de confiança perto de mim</span>
-            </motion.div>
-
-            <motion.div
-              initial={reduce ? false : { opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.5, duration: 0.6 }}
-              className="absolute bottom-[4%] right-[-2%] flex items-center gap-3 rounded-2xl bg-paper px-4 py-3 text-ink shadow-[0_24px_50px_-14px_rgba(0,0,0,0.7)] sm:right-[-4%]"
-            >
-              <span className="relative grid size-9 place-items-center rounded-xl bg-gradient-to-br from-[#1FB8E6] to-[#2563EB]">
-                <MapPin className="size-4 text-white" />
-                <span className="absolute inset-0 rounded-xl border-2 border-cyan [animation:pulse-ring_2.4s_ease-out_infinite] motion-reduce:hidden" />
-              </span>
-              <span className="leading-tight">
-                <span className="block text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-body-light">Sua empresa</span>
-                <span className="block text-sm font-bold">Encontrada primeiro</span>
-              </span>
-            </motion.div>
             </div>
-          </motion.div>
+
+            {/* rótulos dos países */}
+            <span
+              aria-hidden="true"
+              className="absolute -translate-x-1/2 text-[0.55rem] font-semibold tracking-[0.34em] text-white/90 [text-shadow:0_0_12px_rgba(20,184,166,0.9)] sm:text-[0.72rem] lg:text-[0.78rem]"
+              style={{ left: `${mx(25)}%`, top: `${my(31)}%` }}
+            >
+              ESTADOS UNIDOS
+            </span>
+            <span
+              aria-hidden="true"
+              className="absolute -translate-x-1/2 text-[0.55rem] font-semibold tracking-[0.34em] text-white/90 [text-shadow:0_0_12px_rgba(20,184,166,0.9)] sm:text-[0.72rem] lg:text-[0.78rem]"
+              style={{ left: `${mx(59)}%`, top: `${my(68.5)}%` }}
+            >
+              BRASIL
+            </span>
+
+            <div aria-hidden="true">
+              {pins.map((p, i) => (
+                <Pin key={i} x={p.x} y={p.y} delay={(i % 5) * 0.6} />
+              ))}
+            </div>
+
+            <div aria-hidden="true">
+              {businesses.map((b, i) => (
+                <BusinessCard key={b.img} b={b} i={i} />
+              ))}
+            </div>
+          </div>
+
+          {/* celular: etiquetas em grade abaixo do mapa (no desktop elas ficam sobre os cartões) */}
+          <ul className="mt-5 grid grid-cols-2 gap-2.5 sm:hidden">
+            {businesses.map(({ icon: Icon, label }) => (
+              <li key={label[0]} className="flex items-center gap-2 rounded-lg bg-white px-3 py-2 text-[#0b1f2a]">
+                <Icon className="size-4 shrink-0 text-[#00726a]" aria-hidden="true" strokeWidth={2.4} />
+                <span className="text-[0.74rem] font-semibold leading-tight">
+                  {label[0]} <span className="font-medium text-[#2f4552]">{label[1]}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
+      </div>
+
+      {/* ---------------- faixa inferior ---------------- */}
+      <div className="mx-auto mt-10 w-full max-w-[1440px] px-5 pb-12 sm:px-8 lg:mt-4 lg:pb-8 xl:px-12">
+        <ul className="hero-fade grid grid-cols-2 rounded-2xl border border-white/10 bg-[rgba(6,22,32,0.72)] backdrop-blur-sm xl:grid-cols-4" style={{ animationDelay: "0.6s" }}>
+          {facts.map(([title, text], i) => (
+            <li
+              key={title}
+              className={`px-4 py-4 sm:px-8 sm:py-5 lg:py-6 ${i % 2 === 1 ? "border-l border-white/10" : ""} ${i >= 2 ? "border-t border-white/10 xl:border-t-0" : ""} ${i === 2 ? "xl:border-l" : ""}`}
+            >
+              <p className="text-[1.02rem] font-bold leading-tight text-[#14b8a6] sm:text-[1.35rem]">{title}</p>
+              <p className="mt-1 text-[0.8rem] leading-snug text-[#c9d6e2] sm:text-[0.95rem]">{text}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

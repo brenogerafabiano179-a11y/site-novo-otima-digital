@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { BrandLink } from "./ui/Brand";
 import { nav } from "@/lib/site";
 import { whatsappLink } from "@/lib/whatsapp";
@@ -67,8 +67,8 @@ export function Header() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-[var(--header-h)] max-w-[1320px] items-center justify-between gap-6 px-5 sm:px-8">
-        <BrandLink size="sm" showSignature={false} />
+      <div className="mx-auto flex h-[var(--header-h)] max-w-[1440px] items-center justify-between gap-6 px-5 sm:px-8 lg:grid lg:grid-cols-[1fr_auto_1fr] xl:px-12">
+        <BrandLink size="sm" />
 
         <nav aria-label="Navegação principal" className="hidden lg:block">
           <ul className="flex items-center gap-1">
@@ -80,7 +80,7 @@ export function Header() {
                   <Link
                     href={item.href}
                     aria-current={isActive ? "true" : undefined}
-                    className={`relative rounded-full px-4 py-2 text-[0.92rem] font-medium transition-colors ${
+                    className={`relative whitespace-nowrap rounded-full px-2.5 py-2 text-[0.9rem] xl:px-4 xl:text-[0.92rem] font-medium transition-colors ${
                       isActive ? "text-white" : "text-body-dark hover:text-white"
                     }`}
                   >
@@ -88,7 +88,7 @@ export function Header() {
                     {isActive && (
                       <motion.span
                         layoutId="nav-dot"
-                        className="absolute inset-x-4 -bottom-0.5 h-[2px] rounded-full bg-cyan"
+                        className="absolute inset-x-4 -bottom-0.5 h-[2px] rounded-full bg-[#14b8a6]"
                         transition={{ type: "spring", stiffness: 380, damping: 32 }}
                       />
                     )}
@@ -99,20 +99,21 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 lg:justify-self-end">
           <a
             href={whatsappLink("geral")}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-primary hidden !min-h-[44px] !px-5 text-sm sm:inline-flex"
+            className="btn btn-teal group hidden whitespace-nowrap !min-h-[46px] !rounded-xl !px-5 text-sm sm:inline-flex"
           >
-            <WhatsAppIcon className="size-[18px]" />
-            Vamos conversar
+            <WhatsAppIcon className="size-[18px] lg:max-xl:hidden" />
+            Fale com um especialista
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 lg:max-xl:hidden" aria-hidden="true" />
           </a>
           <button
             ref={toggleRef}
             type="button"
-            className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-cyan lg:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-[#14b8a6] lg:hidden"
             aria-expanded={open}
             aria-controls="menu-mobile"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
@@ -160,11 +161,11 @@ export function Header() {
               href={whatsappLink("geral")}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-primary mt-8 w-full"
+              className="btn btn-teal mt-8 w-full !rounded-xl"
               onClick={() => setOpen(false)}
             >
               <WhatsAppIcon className="size-5" />
-              Vamos conversar
+              Fale com um especialista
             </a>
             <div className="signature-line mt-10 w-24" aria-hidden="true" />
             <p className="eyebrow mt-4 text-muted-dark">Brasil • Estados Unidos</p>

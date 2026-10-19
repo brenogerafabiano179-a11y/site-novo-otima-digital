@@ -6,7 +6,7 @@ Site da **Ótima Digital** (Ótima Soluções Empresariais Digitais): estratégi
 
 - Next.js 15 (App Router) + React 19 + TypeScript (modo estrito)
 - Tailwind CSS 4 (tokens da marca em `src/app/globals.css`)
-- Motion (`motion/react`) para animações; canvas 2D para o campo de estrelas
+- Motion (`motion/react`) para animações
 - lucide-react para ícones
 - Fontes locais em `src/fonts` (Unbounded 800/900 e Montserrat 300–800, licença OFL) carregadas com `next/font/local`, sem chamada ao Google Fonts
 
@@ -39,7 +39,7 @@ src/
     termos/             Termos de Uso
     sitemap.ts, robots.ts, icon.png, apple-icon.png
   components/
-    Header, Hero, Starfield, SearchJourney, Services, IntegratedStrategy,
+    Header, Hero, SearchJourney, Services, IntegratedStrategy,
     Markets, Process, CustomSolutions, Values, FAQ, ContactCTA,
     ContactForm, Footer, WhatsAppButton, LegalPage
     ui/ Brand (logo), Reveal, SectionHeading, icons
@@ -49,6 +49,8 @@ src/
 public/
   logo-otima-3d.webp    símbolo 3D (recortado do material da marca)
   mapa-americas.svg     mapa vetorial leve das Américas
+  hero/                 primeira dobra: mapa das Américas (mapa-americas-hero.webp)
+                        e ilustrações dos cartões de negócios (*.svg)
   nebula.webp, horizonte.webp, og.jpg
 ```
 
@@ -69,6 +71,8 @@ Campos enviados: `nome`, `empresa`, `contato`, `servico`, `mensagem`, `consentim
 4. Em **Domains**, conecte `otimadigitalagencia.com` e `www.otimadigitalagencia.com`.
 
 ## Pendências e conteúdo oficial
+
+- **Fotos dos cartões do mapa (primeira dobra):** os seis cartões (cidade, auto center, climatização, restaurante, clínica, academia) usam ilustrações vetoriais em `public/hero/`. Para usar fotografias reais (próprias ou de banco de imagens com licença comercial, sem pessoas), salve-as em `public/hero/` e troque o campo `img` de cada item em `businesses`, no início de `src/components/Hero.tsx`. Proporção recomendada 3:2, cerca de 600×400 px.
 
 - **Logo:** `public/logo-otima-3d.webp` foi recortada da apresentação da marca. Se houver o arquivo original (PNG/SVG em alta), substitua mantendo o nome; o componente `src/components/ui/Brand.tsx` centraliza o uso.
 - **Formulário:** sem `NEXT_PUBLIC_FORM_ENDPOINT`, o envio é pelo WhatsApp.

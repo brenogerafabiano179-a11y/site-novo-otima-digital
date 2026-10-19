@@ -32,10 +32,10 @@ export function BrandMark({
           className={`font-display font-black tracking-[0.02em] ${word} ${tone === "light" ? "text-white" : "text-ink"}`}
         >
           {brand.mark}
-        </span>
+        </span>{" "}
         {showSignature && (
           <span
-            className={`mt-1 text-[0.52rem] font-medium tracking-[0.26em] ${tone === "light" ? "text-muted-dark" : "text-body-light"}`}
+            className={`mt-1 whitespace-nowrap text-[0.52rem] font-medium tracking-[0.26em] ${tone === "light" ? "text-muted-dark" : "text-body-light"}`}
           >
             {brand.signature}
           </span>
@@ -47,7 +47,7 @@ export function BrandMark({
 
 export function BrandLink(props: Parameters<typeof BrandMark>[0] & { home?: string }) {
   return (
-    <Link href={props.home ?? "#inicio"} aria-label="Ótima Digital — voltar ao início" className="rounded-lg">
+    <Link href={props.home ?? "#inicio"} aria-label={`${brand.mark} ${brand.signature} — Ótima Digital, voltar ao início`} className="rounded-lg">
       <BrandMark size={props.size} showSignature={props.showSignature} tone={props.tone} />
     </Link>
   );
