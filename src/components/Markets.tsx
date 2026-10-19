@@ -13,21 +13,23 @@ export function Markets() {
 
       <div className="relative mx-auto grid max-w-[1320px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-12">
         <Reveal className="relative order-2 lg:order-1 lg:col-span-6">
-          <div className="relative mx-auto w-full max-w-[560px]">
-            <div aria-hidden="true" className="absolute inset-[10%] rounded-full bg-[radial-gradient(circle,rgba(47,134,232,0.25),transparent_70%)] blur-2xl" />
-            <Image
-              src="/mapa-americas.svg"
-              alt="Mapa das Américas com os Estados Unidos e o Brasil em destaque, com marcadores de localização em várias cidades dos dois países"
-              width={900}
-              height={1000}
-              className="relative h-auto w-full"
+          <div className="relative mx-auto w-full max-w-[620px]">
+            {/* brilho que "respira" atrás do globo */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-[6%] rounded-full bg-[radial-gradient(circle,rgba(47,134,232,0.35),rgba(63,213,240,0.08)_45%,transparent_70%)] blur-2xl [animation:glow-breathe_7s_ease-in-out_infinite] motion-reduce:animate-none"
             />
-            <span className="absolute left-[30%] top-[8%] rounded-full border border-cyan/60 bg-night/80 px-3.5 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur sm:text-xs">
-              Estados Unidos
-            </span>
-            <span className="absolute bottom-[8%] right-[4%] rounded-full sm:bottom-[17%] border border-blue/70 bg-night/80 px-3.5 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur sm:text-xs">
-              Brasil
-            </span>
+            {/* flutuação suave, sem girar */}
+            <div className="relative [animation:globe-float_9s_ease-in-out_infinite] motion-reduce:animate-none">
+              <Image
+                src="/mapa-globo.webp"
+                alt="Globo noturno com as Américas iluminadas e marcadores de localização nos Estados Unidos e no Brasil"
+                width={1150}
+                height={762}
+                sizes="(max-width: 1024px) 92vw, 620px"
+                className="relative h-auto w-full mix-blend-screen"
+              />
+            </div>
           </div>
         </Reveal>
 

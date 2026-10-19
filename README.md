@@ -48,7 +48,7 @@ src/
     whatsapp.ts         gerador de links wa.me com mensagem codificada
 public/
   logo-otima-3d.webp    símbolo 3D (recortado do material da marca)
-  mapa-americas.svg     mapa vetorial leve das Américas
+  mapa-globo.webp       globo noturno da seção de mercados
   hero/                 primeira dobra: mapa das Américas (mapa-americas-hero.webp)
                         e fotos dos cartões de negócios (*.webp)
   nebula.webp, horizonte.webp, og.jpg
