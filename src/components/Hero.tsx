@@ -2,10 +2,8 @@ import Image from "next/image";
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowRight,
-  ChartColumnIncreasing,
   ChartNoAxesColumn,
   Dumbbell,
-  MapPin,
   PhoneCall,
   Settings,
   Stethoscope,
@@ -14,31 +12,7 @@ import {
 import { whatsappLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./ui/icons";
 
-/* ------------------------------------------------------------------
-   Dados da composição do mapa.
-   Coordenadas em % do quadro do mapa (largura x altura), calculadas a
-   partir da projeção usada para gerar /public/hero/mapa-americas-hero.webp.
-   ------------------------------------------------------------------ */
-
-const MAP_W = 85.7; // a imagem ocupa 85,7% da largura do quadro (o resto é oceano para os cartões)
-const MAP_TOP = 6; // a imagem começa 6% abaixo do topo (espaço para os cartões superiores)
-const mx = (x: number) => +((x * MAP_W) / 100).toFixed(2);
-const my = (y: number) => +(MAP_TOP + (y * (100 - MAP_TOP)) / 100).toFixed(2);
-
-const pins = [
-  // Estados Unidos
-  { x: mx(7.13), y: my(19.27) }, // Los Angeles
-  { x: mx(23.87), y: my(22.07) }, // Dallas
-  { x: mx(33.01), y: my(13.23) }, // Chicago
-  { x: mx(44.15), y: my(14.45) }, // Nova York
-  { x: mx(37.69), y: my(27.06) }, // Orlando
-  // Brasil
-  { x: mx(80.69), y: my(60.99) }, // Fortaleza
-  { x: mx(71.2), y: my(75.14) }, // Brasília
-  { x: mx(70.85), y: my(82.83) }, // São Paulo
-  { x: mx(65.36), y: my(89.32) }, // Porto Alegre
-  { x: mx(60.41), y: my(62.21) }, // Manaus
-];
+/* Composição do mapa: posições dos cartões em % do quadro do mapa. */
 
 type Business = {
   img: string;
@@ -68,7 +42,7 @@ const businesses: Business[] = [
     alt: "Fachada de uma oficina mecânica",
     label: ["Mais clientes", "locais"],
     icon: Users,
-    pos: { left: "55%", top: "1%" },
+    pos: { left: "64%", top: "0%" },
     tag: "below-end",
     mobile: true,
   },
@@ -94,7 +68,7 @@ const businesses: Business[] = [
     alt: "Consultório odontológico",
     label: ["Mais pacientes", "na sua região"],
     icon: Stethoscope,
-    pos: { left: "75%", top: "51%" },
+    pos: { left: "76%", top: "60%" },
     tag: "below-end",
   },
   {
@@ -102,17 +76,10 @@ const businesses: Business[] = [
     alt: "Aparelhos de musculação em uma academia",
     label: ["Mais vendas", "e crescimento"],
     icon: Dumbbell,
-    pos: { left: "68%", top: "76%" },
+    pos: { left: "62%", top: "84%" },
     tag: "below-end",
     mobile: true,
   },
-];
-
-const benefits: { icon: LucideIcon; text: [string, string] }[] = [
-  { icon: ChartColumnIncreasing, text: ["Anúncios no", "Google e Meta"] },
-  { icon: MapPin, text: ["Foco no seu", "mercado local"] },
-  { icon: Users, text: ["Estratégia para", "gerar oportunidades"] },
-  { icon: Settings, text: ["Acompanhamento e", "otimização contínua"] },
 ];
 
 /** Somente afirmações que já constam no site (sem métricas inventadas). */
@@ -122,27 +89,6 @@ const facts: [string, string][] = [
   ["Estratégia", "antes de qualquer ação"],
   ["Relatórios claros", "de investimento e desempenho"],
 ];
-
-function Pin({ x, y, delay }: { x: number; y: number; delay: number }) {
-  return (
-    <span className="absolute" style={{ left: `${x}%`, top: `${y}%` }}>
-      {/* halo no chão */}
-      <span className="absolute left-0 top-0 size-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2f86e8]/35 blur-[3px] sm:size-9" />
-      <span
-        className="hero-pin-pulse absolute left-0 top-0 size-9 rounded-full border border-cyan/70 motion-reduce:hidden sm:size-12"
-        style={{ animationDelay: `${delay}s` }}
-      />
-      {/* gota */}
-      <svg
-        viewBox="0 0 24 32"
-        className="absolute bottom-0 left-0 h-[22px] w-[17px] -translate-x-1/2 drop-shadow-[0_0_8px_rgba(63,213,240,0.85)] sm:h-[30px] sm:w-[23px]"
-      >
-        <path d="M12 31C10 26 2 20 2 12a10 10 0 0 1 20 0c0 8-8 14-10 19Z" fill="#0b2a55" stroke="#3fd5f0" strokeWidth="1.6" />
-        <circle cx="12" cy="12" r="4" fill="#d4f6ff" />
-      </svg>
-    </span>
-  );
-}
 
 function BusinessCard({ b, i }: { b: Business; i: number }) {
   const Icon = b.icon;
@@ -218,38 +164,23 @@ export function Hero() {
             </a>
           </div>
 
-          <ul className="hero-fade relative z-20 mt-9 grid grid-cols-2 gap-x-5 gap-y-5 sm:grid-cols-4 sm:gap-x-4 lg:grid-cols-2 xl:w-[128%] xl:grid-cols-4" style={{ animationDelay: "0.44s" }}>
-            {benefits.map(({ icon: Icon, text }) => (
-              <li key={text[1]} className="flex items-start gap-2.5 whitespace-nowrap text-[0.86rem] leading-snug text-body-dark max-[380px]:whitespace-normal">
-                <Icon className="mt-0.5 size-[22px] shrink-0 text-cyan" aria-hidden="true" strokeWidth={2.2} />
-                <span>
-                  {text[0]}
-                  <br />
-                  {text[1]}
-                </span>
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* ---------------- mapa das Américas ---------------- */}
         <div className="relative mx-auto w-full max-w-[780px] lg:max-w-none">
           <div
             role="img"
-            aria-label="Mapa noturno das Américas com as luzes das cidades, Estados Unidos e Brasil em destaque, marcadores em várias cidades dos dois países e exemplos de negócios locais: cidade, oficina mecânica, centro comercial, restaurante, clínica e academia."
+            aria-label="Mapa noturno das Américas com as luzes das cidades e marcadores de localização e exemplos de negócios locais: cidade, oficina mecânica, centro comercial, restaurante, clínica e academia."
             className="relative aspect-[1050/860] w-full sm:w-[88%] lg:w-full"
           >
-            <div
-              className="hero-fade absolute bottom-0 left-0 [filter:brightness(1.18)_saturate(1.1)] [mask-image:linear-gradient(to_bottom,black_82%,transparent)]"
-              style={{ width: `${MAP_W}%`, top: `${MAP_TOP}%`, animationDelay: "0.1s" }}
-            >
+            <div className="hero-fade absolute inset-0" style={{ animationDelay: "0.1s" }}>
               <Image
                 src="/hero/mapa-americas-hero.webp"
                 alt=""
                 fill
                 priority
-                sizes="(max-width: 1024px) 90vw, 680px"
-                className="object-contain"
+                sizes="(max-width: 1024px) 90vw, 700px"
+                className="object-cover"
               />
             </div>
 
@@ -257,23 +188,17 @@ export function Hero() {
             <span
               aria-hidden="true"
               className="absolute -translate-x-1/2 text-[0.55rem] font-semibold tracking-[0.34em] text-white/90 [text-shadow:0_0_12px_rgba(63,213,240,0.9)] sm:text-[0.72rem] lg:text-[0.78rem]"
-              style={{ left: `${mx(25)}%`, top: `${my(31)}%` }}
+              style={{ left: "47%", top: "12.5%" }}
             >
               ESTADOS UNIDOS
             </span>
             <span
               aria-hidden="true"
               className="absolute -translate-x-1/2 text-[0.55rem] font-semibold tracking-[0.34em] text-white/90 [text-shadow:0_0_12px_rgba(63,213,240,0.9)] sm:text-[0.72rem] lg:text-[0.78rem]"
-              style={{ left: `${mx(59)}%`, top: `${my(68.5)}%` }}
+              style={{ left: "62%", top: "65.5%" }}
             >
               BRASIL
             </span>
-
-            <div aria-hidden="true">
-              {pins.map((p, i) => (
-                <Pin key={i} x={p.x} y={p.y} delay={(i % 5) * 0.6} />
-              ))}
-            </div>
 
             <div aria-hidden="true">
               {businesses.map((b, i) => (
