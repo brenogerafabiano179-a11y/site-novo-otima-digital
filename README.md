@@ -72,7 +72,7 @@ Campos enviados: `nome`, `empresa`, `contato`, `servico`, `mensagem`, `consentim
 
 ## Pendências e conteúdo oficial
 
-- **Fotos dos cartões do mapa (primeira dobra):** os seis cartões usam fotos do Unsplash (licença gratuita para uso comercial) em `public/hero/`. O cartão "Mais oportunidades de negócios" usa provisoriamente um recorte do centro da cidade, à espera de uma foto de climatização. Para trocar uma foto, salve-a em `public/hero/` e troque o campo `img` de cada item em `businesses`, no início de `src/components/Hero.tsx`. Proporção recomendada 3:2, cerca de 600×400 px.
+- **Fotos dos cartões do mapa (primeira dobra):** os seis cartões usam as fotos enviadas pelo cliente, em `public/hero/`. Para trocar uma foto, salve-a em `public/hero/` e troque o campo `img` de cada item em `businesses`, no início de `src/components/Hero.tsx`. Proporção recomendada 3:2, cerca de 600×400 px.
 
 - **Logo:** `public/logo-otima-3d.webp` foi recortada da apresentação da marca. Se houver o arquivo original (PNG/SVG em alta), substitua mantendo o nome; o componente `src/components/ui/Brand.tsx` centraliza o uso.
 - **Formulário:** sem `NEXT_PUBLIC_FORM_ENDPOINT`, o envio é pelo WhatsApp.

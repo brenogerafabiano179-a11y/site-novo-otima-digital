@@ -30,7 +30,7 @@ type Business = {
 const businesses: Business[] = [
   {
     img: "/hero/cidade.webp",
-    alt: "Centro de cidade iluminado ao anoitecer",
+    alt: "Cidade iluminada ao entardecer",
     label: ["Mais visibilidade", "no seu mercado"],
     icon: ChartNoAxesColumn,
     pos: { left: "0%", top: "-2%" },
@@ -39,7 +39,7 @@ const businesses: Business[] = [
   },
   {
     img: "/hero/auto-center.webp",
-    alt: "Fachada de uma oficina mecânica",
+    alt: "Fachada de um auto center à noite",
     label: ["Mais clientes", "locais"],
     icon: Users,
     pos: { left: "64%", top: "0%" },
@@ -47,8 +47,8 @@ const businesses: Business[] = [
     mobile: true,
   },
   {
-    img: "/hero/centro-comercial.webp",
-    alt: "Prédios comerciais iluminados no centro da cidade",
+    img: "/hero/equipamentos.webp",
+    alt: "Condensadoras de ar-condicionado na cobertura de um prédio",
     label: ["Mais oportunidades", "de negócios"],
     icon: Settings,
     pos: { left: "69%", top: "26%" },
@@ -56,7 +56,7 @@ const businesses: Business[] = [
   },
   {
     img: "/hero/restaurante.webp",
-    alt: "Fachada de pizzaria com mesas na calçada à noite",
+    alt: "Fachada de restaurante iluminada ao entardecer",
     label: ["Mais ligações", "e agendamentos"],
     icon: PhoneCall,
     pos: { left: "3%", top: "47%" },
@@ -73,7 +73,7 @@ const businesses: Business[] = [
   },
   {
     img: "/hero/academia.webp",
-    alt: "Aparelhos de musculação em uma academia",
+    alt: "Academia com esteiras e vista para a cidade",
     label: ["Mais vendas", "e crescimento"],
     icon: Dumbbell,
     pos: { left: "62%", top: "84%" },
@@ -170,7 +170,7 @@ export function Hero() {
         <div className="relative mx-auto w-full max-w-[780px] lg:max-w-none">
           <div
             role="img"
-            aria-label="Mapa noturno das Américas com as luzes das cidades e marcadores de localização e exemplos de negócios locais: cidade, oficina mecânica, centro comercial, restaurante, clínica e academia."
+            aria-label="Mapa noturno das Américas com as luzes das cidades e marcadores de localização e exemplos de negócios locais: cidade, auto center, climatização, restaurante, clínica e academia."
             className="relative aspect-[1050/860] w-full sm:w-[88%] lg:w-full"
           >
             <div className="hero-fade absolute inset-0" style={{ animationDelay: "0.1s" }}>
