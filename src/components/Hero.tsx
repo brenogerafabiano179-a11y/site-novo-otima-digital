@@ -115,7 +115,7 @@ export function Hero() {
     <section
       id="inicio"
       aria-labelledby="hero-title"
-      className="relative isolate overflow-hidden bg-[#0e2749] pt-[calc(var(--header-h)+28px)] lg:flex lg:min-h-[100svh] lg:flex-col lg:pt-[calc(var(--header-h)+16px)]"
+      className="relative isolate overflow-hidden bg-[#091731] pt-[calc(var(--header-h)+28px)] lg:flex lg:min-h-[100svh] lg:flex-col lg:pt-[calc(var(--header-h)+16px)]"
     >
       {/* fundo: azul da marca, uniforme */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
