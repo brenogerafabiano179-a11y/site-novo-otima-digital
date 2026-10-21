@@ -82,14 +82,6 @@ const businesses: Business[] = [
   },
 ];
 
-/** Somente afirmações que já constam no site (sem métricas inventadas). */
-const facts: [string, string][] = [
-  ["2 mercados", "Brasil e Estados Unidos"],
-  ["Google e Meta", "anúncios com otimização contínua"],
-  ["Estratégia", "antes de qualquer ação"],
-  ["Relatórios claros", "de investimento e desempenho"],
-];
-
 function BusinessCard({ b, i }: { b: Business; i: number }) {
   const Icon = b.icon;
   return (
@@ -221,20 +213,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* ---------------- faixa inferior ---------------- */}
-      <div className="mx-auto mt-10 w-full max-w-[1440px] px-5 pb-12 sm:px-8 lg:mt-4 lg:pb-8 xl:px-12">
-        <ul className="hero-fade grid grid-cols-2 rounded-2xl border border-white/10 bg-[rgba(10,22,48,0.72)] backdrop-blur-sm xl:grid-cols-4" style={{ animationDelay: "0.6s" }}>
-          {facts.map(([title, text], i) => (
-            <li
-              key={title}
-              className={`px-4 py-4 sm:px-8 sm:py-5 lg:py-6 ${i % 2 === 1 ? "border-l border-white/10" : ""} ${i >= 2 ? "border-t border-white/10 xl:border-t-0" : ""} ${i === 2 ? "xl:border-l" : ""}`}
-            >
-              <p className="text-[1.02rem] font-bold leading-tight text-cyan sm:text-[1.35rem]">{title}</p>
-              <p className="mt-1 text-[0.8rem] leading-snug text-body-dark sm:text-[0.95rem]">{text}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div aria-hidden="true" className="h-12 lg:h-10" />
     </section>
   );
 }
