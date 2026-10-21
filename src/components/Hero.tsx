@@ -115,13 +115,11 @@ export function Hero() {
     <section
       id="inicio"
       aria-labelledby="hero-title"
-      className="relative isolate overflow-hidden bg-night pt-[calc(var(--header-h)+28px)] lg:flex lg:min-h-[100svh] lg:flex-col lg:pt-[calc(var(--header-h)+16px)]"
+      className="relative isolate overflow-hidden bg-[#0e2749] pt-[calc(var(--header-h)+28px)] lg:flex lg:min-h-[100svh] lg:flex-col lg:pt-[calc(var(--header-h)+16px)]"
     >
-      {/* fundo: azul-marinho quase preto, luz turquesa discreta atrás do mapa */}
+      {/* fundo: azul da marca, uniforme */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_50%_at_8%_100%,rgba(63,213,240,0.06),transparent_70%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_70%_40%,black,transparent_70%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-night" />
       </div>
 
       <div className="mx-auto grid w-full max-w-[1440px] flex-1 items-center gap-10 px-5 sm:px-8 lg:grid-cols-[minmax(0,47fr)_minmax(0,53fr)] lg:gap-4 xl:px-12">
