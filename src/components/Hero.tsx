@@ -119,7 +119,7 @@ export function Hero() {
     >
       {/* fundo: azul-marinho quase preto, luz turquesa discreta atrás do mapa */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_60%_at_74%_42%,rgba(47,134,232,0.22),transparent_70%),radial-gradient(ellipse_40%_50%_at_8%_100%,rgba(63,213,240,0.08),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_50%_at_8%_100%,rgba(63,213,240,0.06),transparent_70%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_70%_40%,black,transparent_70%)]" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-night" />
       </div>
@@ -165,7 +165,7 @@ export function Hero() {
             aria-label="Mapa noturno das Américas com as luzes das cidades e marcadores de localização e exemplos de negócios locais: cidade, auto center, climatização, restaurante, clínica e academia."
             className="relative aspect-[1050/860] w-full sm:w-[88%] lg:w-full"
           >
-            <div className="hero-fade absolute inset-0" style={{ animationDelay: "0.1s" }}>
+            <div className="hero-fade absolute inset-0 mix-blend-screen" style={{ animationDelay: "0.1s" }}>
               <Image
                 src="/hero/mapa-americas-hero.webp"
                 alt=""
